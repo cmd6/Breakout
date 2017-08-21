@@ -9,7 +9,9 @@ var oGame = new Phaser.Game(480,320,Phaser.AUTO,null,{
 });
 
 function preload(){
-
+	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+	oGame.scale.pageAlignHorizontally = true;
+	oGame.scale.pageAlignVertically = true;
 }
 function create(){
 
