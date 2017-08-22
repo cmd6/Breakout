@@ -34,6 +34,12 @@ function create() {
 	sprBall.body.velocity.set(300, -300);
 	sprBall.body.collideWorldBounds = true;
 	sprBall.body.bounce.set(1);
+	oGame.physics.arcade.checkCollision.down = false;
+	sprBall.checkWorldBounds = true;
+	sprBall.events.onOutOfBounds.add(function(){
+		alert('Game over!');
+		location.reload();
+	});
 
 	oGame.physics.enable(sprPaddle, Phaser.Physics.ARCADE);
 	sprPaddle.body.immovable = true;
