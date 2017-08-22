@@ -8,6 +8,17 @@ var oGame = new Phaser.Game(960, 640, Phaser.AUTO, null, {
 	update: update
 });
 
+var bmdBall;
+var bmdPaddle;
+var bmdBrick;
+
+var sprBall;
+var sprPaddle;
+var sprNewBrick;
+
+var grpBricks;
+var htBrickInfo;
+
 function preload() {
 	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	oGame.scale.pageAlignHorizontally = true;
@@ -20,6 +31,10 @@ function preload() {
 	bmdPaddle = oGame.add.bitmapData(150, 20);
 	bmdPaddle.ctx.fillStyle = '#00a5e6';
 	bmdPaddle.ctx.fillRect(0, 0, 150, 20);
+
+	bmdBrick = oGame.add.bitmapData(100, 40);
+	bmdBrick.ctx.fillStyle = '#00a5e6';
+	bmdBrick.ctx.fillRect(0, 0, 100, 40);
 }
 function create() {
 	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, bmdBall);
