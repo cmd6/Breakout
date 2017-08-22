@@ -12,6 +12,7 @@ function preload(){
 	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	oGame.scale.pageAlignHorizontally = true;
 	oGame.scale.pageAlignVertically = true;
+	oGame.stage.setBackgroundColor('#eee');
 }
 function create(){
 
