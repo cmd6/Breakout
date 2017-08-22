@@ -19,6 +19,8 @@ var sprNewBrick;
 var grpBricks;
 var htBrickInfo;
 
+var strObjectColor = '#00a5e6';
+
 function preload() {
 	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 	oGame.scale.pageAlignHorizontally = true;
@@ -26,14 +28,14 @@ function preload() {
 	oGame.stage.setBackgroundColor('#eee');
 
 	bmdBall = oGame.add.bitmapData(40, 40);
-	bmdBall.circle(20, 20, 20, '#00a5e6');
+	bmdBall.circle(20, 20, 20, strObjectColor);
 
 	bmdPaddle = oGame.add.bitmapData(150, 20);
-	bmdPaddle.ctx.fillStyle = '#00a5e6';
+	bmdPaddle.ctx.fillStyle = strObjectColor;
 	bmdPaddle.ctx.fillRect(0, 0, 150, 20);
 
 	bmdBrick = oGame.add.bitmapData(100, 40);
-	bmdBrick.ctx.fillStyle = '#00a5e6';
+	bmdBrick.ctx.fillStyle = strObjectColor;
 	bmdBrick.ctx.fillRect(0, 0, 100, 40);
 }
 function create() {
