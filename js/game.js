@@ -17,7 +17,10 @@ function preload(){
 }
 function create(){
 	sprBall = oGame.add.sprite(50,50,'ball');
+	oGame.physics.startSystem(Phaser.Physics.ARCADE);
+	oGame.physics.enable(sprBall,Phaser.Physics.ARCADE);
+	sprBall.body.velocity.set(150,150);
 }
 function update(){
-
+	
 }
