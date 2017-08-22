@@ -2,7 +2,7 @@
 
 // https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_breakout_game_Phaser
 
-var oGame = new Phaser.Game(480, 320, Phaser.AUTO, null, {
+var oGame = new Phaser.Game(960, 640, Phaser.AUTO, null, {
 	preload: preload,
 	create: create,
 	update: update
@@ -14,12 +14,12 @@ function preload() {
 	oGame.scale.pageAlignVertically = true;
 	oGame.stage.setBackgroundColor('#eee');
 
-	bmdBall = oGame.add.bitmapData(20, 20);
-	bmdBall.circle(10, 10, 10, '#00a5e6');
+	bmdBall = oGame.add.bitmapData(40, 40);
+	bmdBall.circle(20, 20, 20, '#00a5e6');
 
-	bmdPaddle = oGame.add.bitmapData(75, 10);
+	bmdPaddle = oGame.add.bitmapData(150, 20);
 	bmdPaddle.ctx.fillStyle = '#00a5e6';
-	bmdPaddle.ctx.fillRect(0, 0, 75, 10);
+	bmdPaddle.ctx.fillRect(0, 0, 150, 20);
 }
 function create() {
 	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, bmdBall);
@@ -31,7 +31,7 @@ function create() {
 	oGame.physics.startSystem(Phaser.Physics.ARCADE);
 
 	oGame.physics.enable(sprBall, Phaser.Physics.ARCADE);
-	sprBall.body.velocity.set(150, -150);
+	sprBall.body.velocity.set(300, -300);
 	sprBall.body.collideWorldBounds = true;
 	sprBall.body.bounce.set(1);
 
