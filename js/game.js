@@ -20,6 +20,8 @@ function create(){
 	oGame.physics.startSystem(Phaser.Physics.ARCADE);
 	oGame.physics.enable(sprBall,Phaser.Physics.ARCADE);
 	sprBall.body.velocity.set(150,150);
+	sprBall.body.collideWorldBounds = true;
+	sprBall.body.bounce.set(1);
 }
 function update(){
 	
