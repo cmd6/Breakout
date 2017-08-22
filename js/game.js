@@ -13,9 +13,10 @@ function preload(){
 	oGame.scale.pageAlignHorizontally = true;
 	oGame.scale.pageAlignVertically = true;
 	oGame.stage.setBackgroundColor('#eee');
+	oGame.load.image('ball','assets/ball.png');
 }
 function create(){
-
+	sprBall = oGame.add.sprite(50,50,'ball');
 }
 function update(){
 
