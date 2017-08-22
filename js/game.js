@@ -13,10 +13,12 @@ function preload(){
 	oGame.scale.pageAlignHorizontally = true;
 	oGame.scale.pageAlignVertically = true;
 	oGame.stage.setBackgroundColor('#eee');
-	oGame.load.image('ball','assets/ball.png');
+
+	bmBall = oGame.add.bitmapData(20,20);
+	bmBall.circle(10,10,10,'#00a5e6');
 }
 function create(){
-	sprBall = oGame.add.sprite(50,50,'ball');
+	sprBall = oGame.add.sprite(50,50,bmBall);
 	oGame.physics.startSystem(Phaser.Physics.ARCADE);
 	oGame.physics.enable(sprBall,Phaser.Physics.ARCADE);
 	sprBall.body.velocity.set(150,150);
