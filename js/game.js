@@ -71,6 +71,17 @@ function update() {
 
 function ballBrickCollide(pBall, pBrick){
 	pBrick.kill();
+	var boolAnyAlive = false;
+	for (var i = 0; i < grpBricks.children.length; i++){
+		if (grpBricks.children[i].alive === true){
+			boolAnyAlive = true;
+			break;
+		}
+	}
+	if(!boolAnyAlive){
+		alert('You won the game.')
+		location.reload();
+	}
 }
 
 function initBricks() {
