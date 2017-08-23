@@ -27,8 +27,9 @@ function preload() {
 	oGame.scale.pageAlignVertically = true;
 	oGame.stage.setBackgroundColor('#eee');
 
-	bmdBall = oGame.add.bitmapData(40, 40);
-	bmdBall.circle(20, 20, 20, strObjectColor);
+	// bmdBall = oGame.add.bitmapData(40, 40);
+	// bmdBall.circle(20, 20, 20, strObjectColor);
+	oGame.load.spritesheet('ball', 'assets/wobble2.png',40,40);
 
 	bmdPaddle = oGame.add.bitmapData(150, 20);
 	bmdPaddle.ctx.fillStyle = strObjectColor;
@@ -39,7 +40,9 @@ function preload() {
 	bmdBrick.ctx.fillRect(0, 0, 100, 40);
 }
 function create() {
-	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, bmdBall);
+	//sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, bmdBall);
+	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, 'ball');
+	sprBall.animations.add('wobble', [0, 1, 0, 2, 0, 1, 0, 2, 0], 24);
 	sprBall.anchor.set(0.5);
 
 	sprPaddle = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 5, bmdPaddle);
@@ -64,21 +67,25 @@ function create() {
 	initBricks();
 }
 function update() {
-	oGame.physics.arcade.collide(sprBall, sprPaddle);
-	oGame.physics.arcade.collide(sprBall, grpBricks, ballBrickCollide);
+	oGame.physics.arcade.collide(sprBall, sprPaddle, collideBallPaddle);
+	oGame.physics.arcade.collide(sprBall, grpBricks, collideBallBrick);
 	sprPaddle.x = oGame.input.x || oGame.world.width * 0.5;
 }
 
-function ballBrickCollide(pBall, pBrick){
+function collideBallPaddle(pBall, pBrick){
+	pBall.animations.play('wobble');
+}
+
+function collideBallBrick(pBall, pBrick) {
 	pBrick.kill();
 	var boolAnyAlive = false;
-	for (var i = 0; i < grpBricks.children.length; i++){
-		if (grpBricks.children[i].alive === true){
+	for (var i = 0; i < grpBricks.children.length; i++) {
+		if (grpBricks.children[i].alive === true) {
 			boolAnyAlive = true;
 			break;
 		}
 	}
-	if(!boolAnyAlive){
+	if (!boolAnyAlive) {
 		alert('You won the game.')
 		location.reload();
 	}
