@@ -82,8 +82,9 @@ function startGame() {
 	boolPlaying = true;
 }
 
-function collideBallPaddle(pBall, pBrick) {
+function collideBallPaddle(pBall, pPaddle) {
 	pBall.animations.play('wobble');
+	pBall.body.velocity.x = -1*5*(pPaddle.x-pBall.x)
 }
 
 function collideBallBrick(pBall, pBrick) {
