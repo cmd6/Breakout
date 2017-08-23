@@ -21,6 +21,9 @@ var htBrickInfo;
 
 var strObjectColor = '#00a5e6';
 var boolPlaying = false;
+var dblSpeedMod = 1;
+var intStartingVelocityX = 300;
+var intStartingVelocityY = -300;
 
 function preload() {
 	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -48,7 +51,7 @@ function create() {
 	sprPaddle = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 5, bmdPaddle);
 	sprPaddle.anchor.set(0.5, 1);
 
-	btnStartButton = oGame.add.button(oGame.world.width * 0.5, oGame.world.height * 0.5, 'button',startGame,this,1,0,2);
+	btnStartButton = oGame.add.button(oGame.world.width * 0.5, oGame.world.height * 0.5, 'button', startGame, this, 1, 0, 2);
 	btnStartButton.anchor.set(0.5);
 
 	oGame.physics.startSystem(Phaser.Physics.ARCADE);
@@ -78,13 +81,13 @@ function update() {
 
 function startGame() {
 	btnStartButton.destroy();
-	sprBall.body.velocity.set(300, -300);
+	sprBall.body.velocity.set(intStartingVelocityX, intStartingVelocityY);
 	boolPlaying = true;
 }
 
 function collideBallPaddle(pBall, pPaddle) {
 	pBall.animations.play('wobble');
-	pBall.body.velocity.x = -1*5*(pPaddle.x-pBall.x)
+	pBall.body.velocity.x = -1 * 5 * dblSpeedMod * (pPaddle.x - pBall.x)
 }
 
 function collideBallBrick(pBall, pBrick) {
@@ -106,6 +109,7 @@ function collideBallBrick(pBall, pBrick) {
 		}
 	});
 	killTween.start();
+	pBall.body.velocity.y *= 1.1;
 }
 
 function initBricks() {
