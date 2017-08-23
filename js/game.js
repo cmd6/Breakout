@@ -8,18 +8,19 @@ var oGame = new Phaser.Game(960, 640, Phaser.AUTO, null, {
 	update: update
 });
 
-var bmdBall;
 var bmdPaddle;
 var bmdBrick;
 
 var sprBall;
 var sprPaddle;
 var sprNewBrick;
+var btnStartButton;
 
 var grpBricks;
 var htBrickInfo;
 
 var strObjectColor = '#00a5e6';
+var boolPlaying = false;
 
 function preload() {
 	oGame.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -27,9 +28,8 @@ function preload() {
 	oGame.scale.pageAlignVertically = true;
 	oGame.stage.setBackgroundColor('#eee');
 
-	// bmdBall = oGame.add.bitmapData(40, 40);
-	// bmdBall.circle(20, 20, 20, strObjectColor);
 	oGame.load.spritesheet('ball', 'assets/wobble2.png', 40, 40);
+	oGame.load.spritesheet('button', 'assets/button.png', 120, 40);
 
 	bmdPaddle = oGame.add.bitmapData(150, 20);
 	bmdPaddle.ctx.fillStyle = strObjectColor;
@@ -40,8 +40,7 @@ function preload() {
 	bmdBrick.ctx.fillRect(0, 0, 100, 40);
 }
 function create() {
-	//sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, bmdBall);
-	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 25, 'ball');
+	sprBall = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 50, 'ball');
 	sprBall.animations.add('wobble', [0, 1, 0, 2, 0, 1, 0, 2, 0], 24);
 	sprBall.animations.add('littleWobble', [0, 1, 0, 2, 0], 24);
 	sprBall.anchor.set(0.5);
@@ -49,10 +48,12 @@ function create() {
 	sprPaddle = oGame.add.sprite(oGame.world.width * 0.5, oGame.world.height - 5, bmdPaddle);
 	sprPaddle.anchor.set(0.5, 1);
 
+	btnStartButton = oGame.add.button(oGame.world.width * 0.5, oGame.world.height * 0.5, 'button',startGame,this,1,0,2);
+	btnStartButton.anchor.set(0.5);
+
 	oGame.physics.startSystem(Phaser.Physics.ARCADE);
 
 	oGame.physics.enable(sprBall, Phaser.Physics.ARCADE);
-	sprBall.body.velocity.set(300, -300);
 	sprBall.body.collideWorldBounds = true;
 	sprBall.body.bounce.set(1);
 	oGame.physics.arcade.checkCollision.down = false;
@@ -70,7 +71,15 @@ function create() {
 function update() {
 	oGame.physics.arcade.collide(sprBall, sprPaddle, collideBallPaddle);
 	oGame.physics.arcade.collide(sprBall, grpBricks, collideBallBrick);
-	sprPaddle.x = oGame.input.x || oGame.world.width * 0.5;
+	if (boolPlaying) {
+		sprPaddle.x = oGame.input.x || oGame.world.width * 0.5;
+	}
+}
+
+function startGame() {
+	btnStartButton.destroy();
+	sprBall.body.velocity.set(300, -300);
+	boolPlaying = true;
 }
 
 function collideBallPaddle(pBall, pBrick) {
