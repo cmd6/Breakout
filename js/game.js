@@ -65,7 +65,12 @@ function create() {
 }
 function update() {
 	oGame.physics.arcade.collide(sprBall, sprPaddle);
+	oGame.physics.arcade.collide(sprBall, grpBricks, ballBrickCollide);
 	sprPaddle.x = oGame.input.x || oGame.world.width * 0.5;
+}
+
+function ballBrickCollide(pBall, pBrick){
+	pBrick.kill();
 }
 
 function initBricks() {
