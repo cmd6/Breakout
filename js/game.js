@@ -53,15 +53,46 @@ function create() {
 	sprBall.body.bounce.set(1);
 	oGame.physics.arcade.checkCollision.down = false;
 	sprBall.checkWorldBounds = true;
-	sprBall.events.onOutOfBounds.add(function(){
+	sprBall.events.onOutOfBounds.add(function () {
 		alert('Game over!');
 		location.reload();
 	});
 
 	oGame.physics.enable(sprPaddle, Phaser.Physics.ARCADE);
 	sprPaddle.body.immovable = true;
+
+	initBricks();
 }
 function update() {
 	oGame.physics.arcade.collide(sprBall, sprPaddle);
 	sprPaddle.x = oGame.input.x || oGame.world.width * 0.5;
+}
+
+function initBricks() {
+	htBrickInfo = {
+		width: 100,
+		height: 40,
+		count: {
+			row: 7,
+			col: 3
+		},
+		offset: {
+			top: 100,
+			left: 120
+		},
+		padding: 20
+	};
+
+	grpBricks = oGame.add.group();
+	for (var c = 0; c < htBrickInfo.count.col; c++) {
+		for (var r = 0; r < htBrickInfo.count.row; r++) {
+			var brickX = (r * (htBrickInfo.width + htBrickInfo.padding)) + htBrickInfo.offset.left;
+			var brickY = (c * (htBrickInfo.height + htBrickInfo.padding)) + htBrickInfo.offset.top;
+			sprNewBrick = oGame.add.sprite(brickX, brickY, bmdBrick);
+			oGame.physics.enable(sprNewBrick, Phaser.Physics.ARCADE);
+			sprNewBrick.body.immovable = true;
+			sprNewBrick.anchor.set(0.5);
+			grpBricks.add(sprNewBrick);
+		}
+	}
 }
